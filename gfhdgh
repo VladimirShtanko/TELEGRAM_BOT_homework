@@ -1,0 +1,14 @@
+ try:
+        val = message.text.split(' ')
+        base, quote, amount = val
+        amount = float(amount)
+        total_amount = CurrencyConverter.get_price(base, quote, amount)
+        bot.reply_to(message, f'{amount} {base} = {total_amount} {quote}')
+    except APIException as e:
+        bot.reply_to(message, f'Ошибка: {e}')
+    except ValueError:
+        bot.reply_to(message, 'Ошибка: Введите данные в правильном формате.')
+    except Exception as e:
+        bot.reply_to(message, f'Произошла неизвестная ошибка: {e}')
+
+bot.polling()
